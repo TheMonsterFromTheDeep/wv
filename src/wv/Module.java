@@ -10,11 +10,7 @@ import java.awt.image.BufferedImage;
 import wv.meta.ModuleParent;
 import wv.meta.NullParent;
 import wv.paint.GraphicsHandle;
-import vague.Program;
-import vague.Resources;
 import wv.util.Rectangle;
-import vague.util.Cursor;
-import vague.util.Percents;
 import wv.util.Vector;
 
 /**
@@ -43,13 +39,6 @@ public class Module implements ModuleParent {
     private Rectangle bounds; //Stores the position and size of the Module
     
     protected Color bgColor; //Stores the color that is put in the background whenever applicable
-    
-    public Percents sizedata = new Percents(); //Stores percents of this Module's size compared to it's container Module's size.
-                                               //Used by container classes.
-    
-    public Percents posdata = new Percents(); //Stores percents of this Module's position offset.
-                                               //Used by container classes.
-    
     
     protected boolean retaining = false;
     
@@ -124,28 +113,6 @@ public class Module implements ModuleParent {
     public static Module create() {
         return new Module();
     }
-    
-    /**
-     * Should be called every time the size of the module is changed.
-     * 
-     * Does calculations so that the module can be rendered with the correct
-     * width and height.
-     */
-    /*private void doRenderCalc() {
-        int width = (bounds.size.x < 1) ? 1 : bounds.size.x; //Get a valid size for the BufferedImages
-        int height = (bounds.size.y < 1) ? 1 : bounds.size.y;
-        
-        //Declare a BufferedImage object to hold the current data of the buffer
-        //so that it can be drawn back to the new buffer
-        //BufferedImage old = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        //old.createGraphics().drawImage(buffer, 0, 0, null);
-        //buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        //Allow graphics to be used.
-        //graphics = buffer.createGraphics();
-        //graphics.setColor(bgColor);
-        //graphics.fillRect(0, 0, buffer.getWidth(), buffer.getHeight());
-        //graphics.drawImage(old, 0, 0, null);
-    }*/
         
     /**
      * Constructs a BufferedImage with the width and height of the Module that is valid:
@@ -168,9 +135,9 @@ public class Module implements ModuleParent {
      * @param y The y position of the top-left corner of the text.
      * @param handle The handle to draw the text with.
      */
-    protected final void drawText(String text, int size, int x, int y, GraphicsHandle handle) {
-        handle.drawImage(Resources.bank.text.draw(text, size), x, y, null);
-    }
+    //protected final void drawText(String text, int size, int x, int y, GraphicsHandle handle) {
+    //    handle.drawImage(Resources.bank.text.draw(text, size), x, y, null);
+    //}
     
     /**
      * Causes the Module to draw one of its child nodes.
@@ -250,16 +217,6 @@ public class Module implements ModuleParent {
     Container Modules should check this value before changing focus.
     */
     public boolean retainFocus() { return retaining; }
-
-    @Override
-    public final void setCursor(Cursor c) {
-        parent.setCursor(c);
-    }
-    
-    @Override
-    public final void clearCursor() {
-        parent.clearCursor();
-    }
     
     /*
     Mouse event methods to be overloaded in subclasses.

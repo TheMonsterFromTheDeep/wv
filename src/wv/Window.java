@@ -245,17 +245,5 @@ public class Window implements ModuleParent, MouseListener, MouseMotionListener,
                 MouseInfo.getPointerInfo().getLocation().x - frame.getX() - frame.getInsets().left,
                 MouseInfo.getPointerInfo().getLocation().y - frame.getY() - frame.getInsets().top
         );
-    }
-
-    
-    //TODO: CARE ABOUT OR KILL THESE METHODS
-    @Override
-    public void setCursor(Cursor c) {
-    }
-
-    @Override
-    public void clearCursor() {
-    }
-
-    
+    } 
 }

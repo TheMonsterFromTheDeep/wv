@@ -4,13 +4,9 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import vague.Resources;
-import vague.input.Controls;
 import wv.Module;
 import wv.Window;
 import wv.paint.GraphicsHandle;
-import vague.module.TestModule;
-import vague.util.Cursor;
 import wv.util.Vector;
 import wv.workspace.menu.SmartMenu;
 
