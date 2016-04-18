@@ -1,6 +1,6 @@
-package module.util;
+package wv.util;
 
-import module.util.Vector;
+import wv.util.Vector;
 
 /**
  * Defines a rectangle with a position in coordinate space along with a width and a height.

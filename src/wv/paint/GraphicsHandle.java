@@ -1,4 +1,4 @@
-package module.paint;
+package wv.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;

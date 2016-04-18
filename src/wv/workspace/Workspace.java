@@ -1,4 +1,4 @@
-package vague.workspace;
+package wv.workspace;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,13 +10,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import vague.Resources;
-import module.util.Rectangle;
+import wv.util.Rectangle;
 import vague.input.Controls;
-import module.Module;
-import module.Window;
-import module.container.Container;
-import module.paint.GraphicsHandle;
-import module.util.Vector;
+import wv.Module;
+import wv.Window;
+import wv.container.Container;
+import wv.paint.GraphicsHandle;
+import wv.util.Vector;
 import vague.VagueWindow;
 import vague.editor.Context;
 import vague.menu.SaveFile;

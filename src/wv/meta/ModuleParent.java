@@ -1,8 +1,8 @@
-package module.meta;
+package wv.meta;
 
-import module.Module;
-import module.paint.GraphicsHandle;
-import module.util.Vector;
+import wv.Module;
+import wv.paint.GraphicsHandle;
+import wv.util.Vector;
 import vague.util.Cursor;
 
 /**

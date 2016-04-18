@@ -1,12 +1,12 @@
-package module.container;
+package wv.container;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import module.Module;
-import module.Window;
-import module.paint.GraphicsHandle;
-import module.util.Vector;
+import wv.Module;
+import wv.Window;
+import wv.paint.GraphicsHandle;
+import wv.util.Vector;
 
 /**
  * The Container class is a basic Module which contains other Modules.

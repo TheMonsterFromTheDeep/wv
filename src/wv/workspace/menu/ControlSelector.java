@@ -1,10 +1,10 @@
-package vague.workspace.menu;
+package wv.workspace.menu;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import vague.Resources;
-import module.Module;
+import wv.Module;
 import vague.util.TextDrawer;
 
 public class ControlSelector {

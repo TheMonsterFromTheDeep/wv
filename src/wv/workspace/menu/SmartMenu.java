@@ -1,15 +1,15 @@
-package vague.workspace.menu;
+package wv.workspace.menu;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import vague.editor.Editor;
-import module.Module;
-import module.Window;
-import module.paint.GraphicsHandle;
+import wv.Module;
+import wv.Window;
+import wv.paint.GraphicsHandle;
 import vague.module.TestModule;
-import module.util.Vector;
+import wv.util.Vector;
 import vague.menu.ToolOptions;
-import vague.workspace.WorkTool;
+import wv.workspace.WorkTool;
 
 /**
  * Represents a menu that fills a WorkTool class on its creation. Intelligent and gives suggestions

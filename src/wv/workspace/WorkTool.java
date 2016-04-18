@@ -1,4 +1,4 @@
-package vague.workspace;
+package wv.workspace;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -6,13 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import vague.Resources;
 import vague.input.Controls;
-import module.Module;
-import module.Window;
-import module.paint.GraphicsHandle;
+import wv.Module;
+import wv.Window;
+import wv.paint.GraphicsHandle;
 import vague.module.TestModule;
 import vague.util.Cursor;
-import module.util.Vector;
-import vague.workspace.menu.SmartMenu;
+import wv.util.Vector;
+import wv.workspace.menu.SmartMenu;
 
 /**
  * The WorkTool class defines a Module that can be created through the Workspace. It is fundamentally

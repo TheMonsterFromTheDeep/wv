@@ -1,4 +1,4 @@
-package module;
+package wv;
 
 //import module.meta.ModuleBase;
 import java.awt.Color;
@@ -7,15 +7,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
-import module.meta.ModuleParent;
-import module.meta.NullParent;
-import module.paint.GraphicsHandle;
+import wv.meta.ModuleParent;
+import wv.meta.NullParent;
+import wv.paint.GraphicsHandle;
 import vague.Program;
 import vague.Resources;
-import module.util.Rectangle;
+import wv.util.Rectangle;
 import vague.util.Cursor;
 import vague.util.Percents;
-import module.util.Vector;
+import wv.util.Vector;
 
 /**
  * The Module class defines an object which does graphical rendering and processes user input.

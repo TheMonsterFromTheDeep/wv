@@ -1,4 +1,4 @@
-package module.util;
+package wv.util;
 
 /**
  * The FloatVector class is a simple container for two floats.
