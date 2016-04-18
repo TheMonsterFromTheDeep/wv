@@ -1,0 +1,9 @@
+#Ignore various Netbeans directories / files
+
+/nbproject
+/build
+build.xml
+
+#Ignore GIMP images
+
+*.xcf
