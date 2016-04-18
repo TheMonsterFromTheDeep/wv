@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelEvent;
 import wv.Module;
 import wv.Window;
 import wv.paint.GraphicsHandle;
-import wv.util.Vector;
+import wv.util.Point;
 import wv.workspace.menu.SmartMenu;
 
 /**
@@ -63,9 +63,9 @@ public class WorkTool extends Module {
     
     private boolean valid = true; //Used to store whether the WorkTool should display as invalid (when being resized / moved)
     
-    private Vector anchorVec; //Stores the anchor mouse position for when the WorkTool is moved / resized
-    private Vector startPos; //Stores the position to jump to if a move / resize fails
-    private Vector startSize; //Stores the size to reset to if a resize fails
+    private Point anchorVec; //Stores the anchor mouse position for when the WorkTool is moved / resized
+    private Point startPos; //Stores the position to jump to if a move / resize fails
+    private Point startSize; //Stores the size to reset to if a resize fails
     
     private Module child; //The WorkTool contains a single Module child which does what it needs to do
     private Module flip; //The WorkTool also stores its last used child
@@ -79,16 +79,18 @@ public class WorkTool extends Module {
     
     private boolean focused; //Stores whether the WorkTool has focus
     
-    private WorkTool(Vector start, Vector end) {
+    private WorkTool(Point start, Point end) {
         bgColor = BG_COLOR; //Set the Module background color to the static background color
         
         /*
         This caluclates the position and size of the WorkTool similarly to how 'start' and
-          'size' are calculated at Workspace/WORKTOOL VECTOR ORGANIZATION. The position ('pos')
-          consists of the smallest x and y passed through the 'start' and 'end' Vectors. The 
-          size is then calculated by subtracting the smaller x / y from the larger x / y.
-        */
-        Vector pos = new Vector(), size = new Vector();
+        'size' are calculated at Workspace/WORKTOOL VECTOR ORGANIZATION. The position ('pos')
+        consists of the smallest x and y passed through the 'start' and 'end' Vectors. The
+        size is then calculated by subtracting the smaller x / y from the larger x / y.
+         */
+        Point pos = new Point();
+
+        Vector size = new Point();
         if(start.x < end.x) {
             pos.x = start.x;
             size.x = end.x - start.x;
@@ -128,7 +130,7 @@ public class WorkTool extends Module {
         return new WorkTool();
     }
     
-    public static WorkTool create(Vector start, Vector end) {
+    public static WorkTool create(Point start, Point end) {
         WorkTool w = new WorkTool(start,end); //Create the WorkTool based on the start and end Vectors
         
         w.child = Module.create(); //This makes sure that the child module is initialized.
@@ -149,7 +151,7 @@ public class WorkTool extends Module {
     }
     
     @Override
-    public void onResize(Vector newSize) {
+    public void onResize(Point newSize) {
         //When the WorkTool is resized, the child needs to be resized to match:
         //the child Module is resized to the size of the WorkTool minus the insets
         //on both sides, therefore 2 * the inset width is subtracted from each dimension.
@@ -183,12 +185,12 @@ public class WorkTool extends Module {
     public void setWorkspace(Workspace w) { this.workspace = w; }
     
     @Override
-    public void mouseMove(Vector pos, Vector dif) {
+    public void mouseMove(Point pos, Point dif) {
         if(action == ACTION_MOVE) { //If the action is ACTION_MOVE, the Module needs to move
             //Gets the new position that the Module is moving to:
             //it adds the difference of the mouse position and the starting mouse position to
             //the current position
-            Vector newPos = position().getSum(pos.getDif(anchorVec));
+            Point newPos = position().getSum(pos.getDif(anchorVec));
             
             //If the snapping control is active, then the move position should be snapped (increments of Workspace.GRID_SIZE)
             if(Controls.bank.status(Controls.WORKSPACE_GRID_SNAP)) {
@@ -205,13 +207,13 @@ public class WorkTool extends Module {
             //drawParent(); //Re-draws its parent (if it's parent is a Workspace, then it will know to draw this Module specially using a buffer for all the others alone)
         }
         if(action == ACTION_RESIZE_TL) {
-            Vector newCorner = position().getSum(pos.getDif(anchorVec)); //The new corner is the upper left (so, raw position)
+            Point newCorner = position().getSum(pos.getDif(anchorVec)); //The new corner is the upper left (so, raw position)
             
             if(Controls.bank.status(Controls.WORKSPACE_GRID_SNAP)) {
                 newCorner.snap(Workspace.GRID_SIZE);
             }
             
-            Vector newSize = bounds().bottomRight().getDif(newCorner); //This stores the new size based on that corner
+            Point newSize = bounds().bottomRight().getDif(newCorner); //This stores the new size based on that corner
             
             if(Controls.bank.status(Controls.WORKSPACE_GRID_SNAP)) {           
                 newSize.snap(Workspace.GRID_SIZE);
@@ -227,15 +229,15 @@ public class WorkTool extends Module {
             //drawParent();
         }
         if(action == ACTION_RESIZE_BL) {
-            Vector newCorner = bounds().bottomLeft().getSum(pos.getDif(anchorVec)); //The new bottom-left corner
+            Point newCorner = bounds().bottomLeft().getSum(pos.getDif(anchorVec)); //The new bottom-left corner
             
-            Vector newPosition = new Vector(newCorner.x,y());
+            Point newPosition = new Point(newCorner.x,y());
             
             if(Controls.bank.status(Controls.WORKSPACE_GRID_SNAP)) {
                 newPosition.snap(Workspace.GRID_SIZE);
             }
             
-            Vector newSize = new Vector(bounds().bottomRight().x - newPosition.x, pos.y);
+            Point newSize = new Point(bounds().bottomRight().x - newPosition.x, pos.y);
             
             if(Controls.bank.status(Controls.WORKSPACE_GRID_SNAP)) {           
                 newSize.snap(Workspace.GRID_SIZE);
@@ -251,9 +253,9 @@ public class WorkTool extends Module {
             //drawParent();
         }
         if(action == ACTION_RESIZE_BR) {
-            Vector newPosition = position();
+            Point newPosition = position();
             
-            Vector newSize = new Vector(pos.x, pos.y);
+            Point newSize = new Point(pos.x, pos.y);
             
             if(Controls.bank.status(Controls.WORKSPACE_GRID_SNAP)) {
                 newPosition.snap(Workspace.GRID_SIZE);

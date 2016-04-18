@@ -3,7 +3,7 @@ package wv.meta;
 import java.awt.image.BufferedImage;
 import wv.Module;
 import wv.paint.GraphicsHandle;
-import wv.util.Vector;
+import wv.util.Point;
 
 /**
  * The NullParent represents a null module parent. It might be good in the future for it to not silently ignore everything a module does.
@@ -13,7 +13,7 @@ public final class NullParent implements ModuleParent {
     public void drawChild(Module child) { }
 
     @Override
-    public Vector mousePosition() { return Vector.ZERO; }
+    public Point mousePosition() { return Point.ZERO; }
 
     @Override
     public int getAbsoluteX() { return 0; }

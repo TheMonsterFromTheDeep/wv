@@ -11,7 +11,7 @@ import wv.meta.ModuleParent;
 import wv.meta.NullParent;
 import wv.paint.GraphicsHandle;
 import wv.util.Rectangle;
-import wv.util.Vector;
+import wv.util.Point;
 
 /**
  * The Module class defines an object which does graphical rendering and processes user input.
@@ -79,7 +79,7 @@ public class Module implements ModuleParent {
      * @param position The position to initialize with.
      * @param size The size to initialize with.
      */
-    protected final void initialize(Vector position, Vector size) {
+    protected final void initialize(Point position, Point size) {
         bounds = new Rectangle(position, size);
         //doRenderCalc();
     }
@@ -121,7 +121,7 @@ public class Module implements ModuleParent {
      * @param bufferSize The size of the buffer to construct.
      * @return The constructed BufferedImage.
      */
-    protected final BufferedImage getValidBuffer(Vector bufferSize) {
+    protected final BufferedImage getValidBuffer(Point bufferSize) {
         int width = (bufferSize.x < 1) ? 1 : bufferSize.x;
         int height = (bufferSize.y < 1) ? 1 : bufferSize.y;
         return new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
@@ -171,7 +171,7 @@ public class Module implements ModuleParent {
      * @return A Vector object containing the mouse position.
      */
     @Override
-    public Vector mousePosition() {
+    public Point mousePosition() {
         return parent.mousePosition().getDif(bounds.position);
     }
     
@@ -183,12 +183,12 @@ public class Module implements ModuleParent {
      * @param point The point to check against.
      * @return Whether the point is within the Module's bounds.
      */
-    public final boolean containsPoint(Vector point) {
+    public final boolean containsPoint(Point point) {
         return bounds.contains(point);
     }
     
     //Called when the mouse is moved - container classes pass mouse offset as well
-    public void mouseMove(Vector mousePos, Vector mouseDif) { }
+    public void mouseMove(Point mousePos, Point mouseDif) { }
     
     /*
     Called when a parent Module determines this child to be in / out of focus.
@@ -244,8 +244,8 @@ public class Module implements ModuleParent {
     public final void resize(int width, int height) {
         width = width < 0 ? 0 : width; //The Module should not be resizable to less than zero
         height = height < 0 ? 0 : height;
-        onResize(new Vector(width, height)); //Call the onResize() method in case a subclass cares when it is resized
-        bounds.size = new Vector(width, height); //Update the size of the bounds
+        onResize(new Point(width, height)); //Call the onResize() method in case a subclass cares when it is resized
+        bounds.size = new Point(width, height); //Update the size of the bounds
         //doRenderCalc(); //Re-do render calculations because this now has a different buffer size
         //repaint(); //Redraw in case it needs to be re-drawn
         repaint();
@@ -258,11 +258,11 @@ public class Module implements ModuleParent {
      * to happen when resized for the module to work correctly. 
      * @param v The Vector to resize to.
      */
-    public final void resize(Vector v) {
+    public final void resize(Point v) {
         v.x = v.x < 0 ? 0 : v.x;
         v.y = v.y < 0 ? 0 : v.y;
         onResize(v);
-        bounds.size = new Vector(v); //The Vector is copied so that nothing has a reference to size through a refererence
+        bounds.size = new Point(v); //The Vector is copied so that nothing has a reference to size through a refererence
         //doRenderCalc();
         repaint();
         //repaint();
@@ -277,8 +277,8 @@ public class Module implements ModuleParent {
      * @param y The new y position of the module.
      */
     public final void locate(int x, int y) {
-        onLocate(new Vector(x, y)); //Call the onLocate() method in case a subclass wants to know when it is re-located
-        bounds.position = new Vector(x, y); //The position has changed, so update the bounds position
+        onLocate(new Point(x, y)); //Call the onLocate() method in case a subclass wants to know when it is re-located
+        bounds.position = new Point(x, y); //The position has changed, so update the bounds position
     }
     
     /**
@@ -288,9 +288,9 @@ public class Module implements ModuleParent {
      * to happen when moved for the module to work correctly. 
      * @param v The Vector to move to.
      */
-    public final void locate(Vector v) {
+    public final void locate(Point v) {
         onLocate(v);
-        bounds.position = new Vector(v); //The Vector is copied so that nothing has a reference to position through a refererence
+        bounds.position = new Point(v); //The Vector is copied so that nothing has a reference to position through a refererence
     }
     
     /*
@@ -300,8 +300,8 @@ public class Module implements ModuleParent {
     A Vector object is passed rather than two values for ease of use - being able
     to reference values directly rather than have to convert to a Vector if necessary.
     */
-    public void onResize(Vector v) { }
-    public void onLocate(Vector v) { }
+    public void onResize(Point v) { }
+    public void onLocate(Point v) { }
     
     public final Rectangle bounds() { return new Rectangle(bounds); }
     
@@ -314,7 +314,7 @@ public class Module implements ModuleParent {
     public final int height() { return bounds.size.y; }
     
     //Returns a copy of the size Vector so it can be used without being changed.
-    public final Vector size() { return new Vector(bounds.size); }
+    public final Point size() { return new Point(bounds.size); }
     
     /*
     x() and y() return the x and y position of the module, respectively.
@@ -325,7 +325,7 @@ public class Module implements ModuleParent {
     public final int y() { return bounds.position.y; }
     
     //Returns a copy of the position Vector so it can be used without being changed.
-    public final Vector position() { return new Vector(bounds.position); }
+    public final Point position() { return new Point(bounds.position); }
     
     /*
     right() and bottom() return the x and y values of the right of the Module and thhe bottom of the Module,
@@ -337,7 +337,7 @@ public class Module implements ModuleParent {
     public final int bottom() { return bounds.bottom(); }
     
     //Returns the position of the bottom right corner of the module. Useful for various application. 
-    public final Vector bottomRight() { return new Vector(bounds.position.getSum(bounds.size)); }
+    public final Point bottomRight() { return new Point(bounds.position.getSum(bounds.size)); }
     
     public final boolean intersects(Module m) {
         return(bounds.intersects(m.bounds));
@@ -398,7 +398,7 @@ public class Module implements ModuleParent {
      * @return A boolean value indicating whether parent classes should draw the module.
      */
     public final boolean visible() {
-        return !bounds.size.similar(Vector.ZERO);
+        return !bounds.size.similar(Point.ZERO);
     }
     
     /**

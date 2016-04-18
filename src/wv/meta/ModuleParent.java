@@ -2,7 +2,7 @@ package wv.meta;
 
 import wv.Module;
 import wv.paint.GraphicsHandle;
-import wv.util.Vector;
+import wv.util.Point;
 
 /**
  * Defines an object that can be treated as the parent to a Module. An object that Modules are parentable
@@ -11,7 +11,7 @@ import wv.util.Vector;
 public interface ModuleParent {
     void drawChild(Module child);
     
-    Vector mousePosition();
+    Point mousePosition();
     
     int getAbsoluteX();
     int getAbsoluteY();

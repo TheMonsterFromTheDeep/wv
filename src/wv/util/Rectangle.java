@@ -1,21 +1,21 @@
 package wv.util;
 
-import wv.util.Vector;
+import wv.util.Point;
 
 /**
  * Defines a rectangle with a position in coordinate space along with a width and a height.
  * @author TheMonsterFromTheDeep
  */
 public class Rectangle {
-    public Vector position;
-    public Vector size;
+    public Point position;
+    public Point size;
     
     /**
      * Creates a Rectangle with the specified position and size.
      * @param position The position of the Rectangle.
      * @param size The size of the Rectangle.
      */
-    public Rectangle(Vector position, Vector size) {
+    public Rectangle(Point position, Point size) {
         this.position = position;
         this.size = size;
     }
@@ -28,8 +28,8 @@ public class Rectangle {
      * @param height The height of the Rectangle. 
      */
     public Rectangle(int x, int y, int width, int height) {
-        this.position = new Vector(x,y);
-        this.size = new Vector(width,height);
+        this.position = new Point(x,y);
+        this.size = new Point(width,height);
     }
     
     /**
@@ -37,17 +37,17 @@ public class Rectangle {
      * @param r The Rectangle to copy.
      */
     public Rectangle(Rectangle r) {
-        position = new Vector(r.position);
-        size = new Vector(r.size);
+        position = new Point(r.position);
+        size = new Point(r.size);
     }
     
     /*
     These methods return a Vector object containing the position of various corners of the Rectangle.
     */
-    public Vector topLeft() { return position; }
-    public Vector topRight() { return new Vector(position.x + size.x, position.y); }
-    public Vector bottomLeft() { return new Vector(position.x, position.y + size.y); }
-    public Vector bottomRight() { return new Vector(position.x + size.x, position.y + size.y); }
+    public Point topLeft() { return position; }
+    public Point topRight() { return new Point(position.x + size.x, position.y); }
+    public Point bottomLeft() { return new Point(position.x, position.y + size.y); }
+    public Point bottomRight() { return new Point(position.x + size.x, position.y + size.y); }
     
     /*
     These methods return integer positions of various sides of the Rectangle.
@@ -61,7 +61,7 @@ public class Rectangle {
         position.add(x, y);
     }
     
-    public void translate(Vector v) {
+    public void translate(Point v) {
         position.add(v);
     }
     
@@ -82,7 +82,7 @@ public class Rectangle {
      * @param point The point to check.
      * @return Whether the Rectangle contains the specified point.
      */
-    public boolean contains(Vector point) {
+    public boolean contains(Point point) {
         return (point.x >= position.x && point.x <= position.x + size.x) && 
                (point.y >= position.y && point.y <= position.y + size.y);
     }
@@ -107,7 +107,7 @@ public class Rectangle {
      * @param point The point to check.
      * @return Whether the Rectangle contains the specified point.
      */
-    public boolean encloses(Vector point) {
+    public boolean encloses(Point point) {
         return (point.x > position.x && point.x < position.x + size.x) && 
                (point.y > position.y && point.y < position.y + size.y);
     }

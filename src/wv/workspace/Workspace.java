@@ -16,7 +16,7 @@ import wv.Module;
 import wv.Window;
 import wv.container.Container;
 import wv.paint.GraphicsHandle;
-import wv.util.Vector;
+import wv.util.Point;
 import vague.VagueWindow;
 import vague.editor.Context;
 import vague.menu.SaveFile;
@@ -37,8 +37,8 @@ public final class Workspace extends Module {
     private static final int BG_WIDTH = 800; //Width/height of bgimage
     private static final int BG_HEIGHT = 600;
     
-    private Vector toolStart; //Used when the Workspace is creating a tool - toolStart is anchored and toolEnd
-    private Vector toolEnd;   //moves to match the mouse
+    private Point toolStart; //Used when the Workspace is creating a tool - toolStart is anchored and toolEnd
+    private Point toolEnd;   //moves to match the mouse
     
     private boolean createTool; //Stores whether the Workspace is currently being used to create a tool
     //NOTE: May be changed in the future to a integer which stores the function that the Container is
@@ -135,7 +135,7 @@ public final class Workspace extends Module {
     }
     
     @Override
-    public void onResize(Vector newSize) {
+    public void onResize(Point newSize) {
         //When the Workspace is resized, it needs to update its 'workspace' buffer because that buffer
         //needs to be as big as the module
         workspace = getValidBuffer(newSize);
@@ -149,8 +149,8 @@ public final class Workspace extends Module {
     public void mouseDown(MouseEvent e) {
         if(activeIndex == -1) { //If there is no active tool, mouse down creates new tools
             createTool = true; //Set the tool creation flag so that the mouseMove() method will do tool creation
-            toolStart = new Vector(mousePosition()); //Copy the mousePosition into both the toolStart and toolEnd
-            toolEnd = new Vector(toolStart); //both are equal to mousePosition because there is no other info yet
+            toolStart = new Point(mousePosition()); //Copy the mousePosition into both the toolStart and toolEnd
+            toolEnd = new Point(toolStart); //both are equal to mousePosition because there is no other info yet
             
             
             repaint();
@@ -301,7 +301,10 @@ public final class Workspace extends Module {
         GraphicsHandle handle = beginDraw();
         handle.drawImage(workspace,0,0,null); //Draw the current buffer of the workspace
 
-        Vector start = new Vector(), size = new Vector(); //Store where the being created tool should be drawn
+        Point start = new Point();
+
+        Vector size = new Point(); //Store where the being created tool should be drawn
+        
         /* WORKTOOL VECTOR ORGANIZATION
         Vector start - stores the start draw position of the tool
         Vector size - stores the size of the tool being draw
@@ -377,7 +380,7 @@ public final class Workspace extends Module {
         endDraw(handle);
     }
     
-    private void updateActiveChild(Vector mousePosition) {
+    private void updateActiveChild(Point mousePosition) {
         boolean updated = false; //Stores whether a new active Module was discovered
         int i = 0; //The index currently being checked for active-ness
         while(!updated && i < children.length) { //Iterate through child Modules to see if any are active
@@ -394,7 +397,7 @@ public final class Workspace extends Module {
     }
     
     @Override
-    public void mouseMove(Vector pos, Vector dif) {
+    public void mouseMove(Point pos, Point dif) {
         if(activeIndex > -1) { //If the activeIndex is greater than 1, the active Module needs to be checked for
                                //activeness retaint and if so, updated with its own mouseMove()
             if(!activeChild.retainFocus()) { //If the child is retaining focus, there is no point in checking if it is no longer
@@ -413,7 +416,7 @@ public final class Workspace extends Module {
         }
         else if(createTool) { //If there is not an active child, but tools are being created, nothing other than tool creation should be happending
             if(Controls.bank.status(Controls.WORKSPACE_SQUARE_TOOL)) { //If the square tool control is active, make the tool square
-                toolEnd = new Vector(pos.x,pos.x + (toolStart.y - toolStart.x)); //Right now, squaring the tool is done using the x coordinate
+                toolEnd = new Point(pos.x,pos.x + (toolStart.y - toolStart.x)); //Right now, squaring the tool is done using the x coordinate
                 ////TODO: Make much better square tool creation algorithm (need to consider the most user-friendly way to do so)
             }
             else {

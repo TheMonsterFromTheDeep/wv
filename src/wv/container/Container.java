@@ -6,7 +6,7 @@ import java.awt.event.MouseWheelEvent;
 import wv.Module;
 import wv.Window;
 import wv.paint.GraphicsHandle;
-import wv.util.Vector;
+import wv.util.Point;
 
 /**
  * The Container class is a basic Module which contains other Modules.
@@ -24,7 +24,7 @@ public class Container extends Module {
         if(children.length < 1) {
             this.children = new Module[0]; //If there are no children, then there are no children
             clearActiveChild(); //Clear the active child because there can't be an active child
-            initialize(new Vector(),new Vector()); //If there is no child modules, there is no reason for this to have any size
+            initialize(new Point(),new Point()); //If there is no child modules, there is no reason for this to have any size
         }
         else {
             this.children = children;
@@ -40,12 +40,12 @@ public class Container extends Module {
                 }
             }
             //Initialize the module to zero,zero with the calculate size
-            initialize(new Vector(),new Vector(width,height));
+            initialize(new Point(),new Point(width,height));
         }
     }
     
     protected Container(int width, int height, Module[] children) {
-        initialize(new Vector(0,0), new Vector(width,height)); //Initialize the Container with the given width and height (children's height does not matter; they can go outside Container)
+        initialize(new Point(0,0), new Point(width,height)); //Initialize the Container with the given width and height (children's height does not matter; they can go outside Container)
         if(children.length < 1) {
             this.children = new Module[0]; //If there are no children, then there are no children
             clearActiveChild(); //Clear the active child because there can't be an active child
@@ -186,7 +186,7 @@ public class Container extends Module {
     size with the most accurate possible information.
     */
     @Override
-    public void onResize(Vector newSize) {
+    public void onResize(Point newSize) {
         //In general, when a container is resized, its children should be re-sized and re-positioned to scale
         for(int i = 0; i < children.length; i++) {
             children[i].resize(children[i].sizedata.getFactor(newSize)); //Scale and position children based on their percent metadata
@@ -195,7 +195,7 @@ public class Container extends Module {
     }
     
     @Override
-    public void mouseMove(Vector mousePos, Vector mouseDif) {
+    public void mouseMove(Point mousePos, Point mouseDif) {
         if(!activeChild.retainFocus()) { //If the active child is not retaining focus, checck to see if it no longer has focus
             if (!activeChild.containsPoint(mousePos) || !activeChild.visible()) { //If the active child does not contain the mouse or it not visible, it is no longer in focus
                 activeChild.onUnfocus(); //Call the unfocus event of the active child, as it is no longer going to be active

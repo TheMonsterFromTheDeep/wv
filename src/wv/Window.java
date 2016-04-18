@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import wv.meta.ModuleParent;
 import wv.paint.GraphicsHandle;
-import wv.util.Vector;
+import wv.util.Point;
 
 /**
  * The Window interfaces the Module system with various Java windowing systems to form a coherent unit.
@@ -37,7 +37,7 @@ public class Window implements ModuleParent, MouseListener, MouseMotionListener,
     int minHeight = 50;
     
     //Used in the mouseMove() call to child modules
-    private Vector lastMousePos;
+    private Point lastMousePos;
     
     //private Module paintTarget;
     //private GraphicsCallback paintCallback;
@@ -93,7 +93,7 @@ public class Window implements ModuleParent, MouseListener, MouseMotionListener,
         panel.addMouseWheelListener(this);
         frame.addKeyListener(this);
         
-        lastMousePos = new Vector(Vector.ZERO);
+        lastMousePos = new Point(Point.ZERO);
         panel.addMouseMotionListener(this);
         
         frame.addComponentListener(new ComponentAdapter() {
@@ -198,8 +198,8 @@ public class Window implements ModuleParent, MouseListener, MouseMotionListener,
     //I'm assuming that mouseDragged and mouseMoved will never be called at the same time...
     @Override
     public final void mouseDragged(MouseEvent me) {
-        Vector mousePos = new Vector(me.getX(), me.getY());
-        Vector mouseDif = mousePos.getDif(lastMousePos);
+        Point mousePos = new Point(me.getX(), me.getY());
+        Point mouseDif = mousePos.getDif(lastMousePos);
         lastMousePos.set(mousePos);
         child.mouseMove(mousePos, mouseDif);
     }
@@ -207,8 +207,8 @@ public class Window implements ModuleParent, MouseListener, MouseMotionListener,
     @Override
     public final void mouseMoved(MouseEvent me) {
         //TODO: Implement mouse moving
-        Vector mousePos = new Vector(me.getX(), me.getY());
-        Vector mouseDif = mousePos.getDif(lastMousePos);
+        Point mousePos = new Point(me.getX(), me.getY());
+        Point mouseDif = mousePos.getDif(lastMousePos);
         lastMousePos.set(mousePos);
         child.mouseMove(mousePos, mouseDif);
     }
@@ -240,8 +240,8 @@ public class Window implements ModuleParent, MouseListener, MouseMotionListener,
     public void keyUp(KeyEvent e) { }
     
     @Override
-    public final Vector mousePosition() {
-        return new Vector(
+    public final Point mousePosition() {
+        return new Point(
                 MouseInfo.getPointerInfo().getLocation().x - frame.getX() - frame.getInsets().left,
                 MouseInfo.getPointerInfo().getLocation().y - frame.getY() - frame.getInsets().top
         );

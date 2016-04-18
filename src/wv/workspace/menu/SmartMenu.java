@@ -7,7 +7,7 @@ import wv.Module;
 import wv.Window;
 import wv.paint.GraphicsHandle;
 import vague.module.TestModule;
-import wv.util.Vector;
+import wv.util.Point;
 import vague.menu.ToolOptions;
 import wv.workspace.WorkTool;
 
@@ -48,7 +48,7 @@ public class SmartMenu extends Module {
     }
     
     @Override
-    public void mouseMove(Vector mousePos, Vector mouseDif) {
+    public void mouseMove(Point mousePos, Point mouseDif) {
         for(ControlSelector cs : controlSelectors) {
             cs.update(mousePos.x, mousePos.y);
         }
