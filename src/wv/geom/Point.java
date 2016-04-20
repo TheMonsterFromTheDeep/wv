@@ -1,10 +1,10 @@
-package wv.util;
+package wv.geom;
 
 /**
  * A Point is s floating-point representation of a location. It contains both an x and a y coordinate.
  * @author TheMonsterFromTheDeep
  */
-public class Point {
+public class Point extends Vector2 {
     public float x; //x location
     public float y; //y location
     
@@ -73,4 +73,16 @@ public class Point {
         this.x = v.x;
         this.y = v.y;
     }
+
+    @Override
+    public float getXComponent() { return this.x; }
+
+    @Override
+    public float getYComponent() { return this.y; }
+
+    @Override
+    public void setXComponent(float x) { this.x = x; }
+
+    @Override
+    public void setYComponent(float y) { this.y = y; }
 }

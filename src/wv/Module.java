@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 import wv.meta.ModuleParent;
 import wv.meta.NullParent;
 import wv.paint.GraphicsHandle;
-import wv.util.Rectangle;
-import wv.util.Point;
+import wv.geom.Rectangle;
+import wv.geom.Point;
 
 /**
  * The Module class defines an object which does graphical rendering and processes user input.

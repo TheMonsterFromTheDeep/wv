@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelEvent;
 import wv.Module;
 import wv.Window;
 import wv.paint.GraphicsHandle;
-import wv.util.Point;
+import wv.geom.Point;
 import wv.workspace.menu.SmartMenu;
 
 /**

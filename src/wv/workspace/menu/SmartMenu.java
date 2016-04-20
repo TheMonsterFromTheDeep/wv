@@ -7,7 +7,7 @@ import wv.Module;
 import wv.Window;
 import wv.paint.GraphicsHandle;
 import vague.module.TestModule;
-import wv.util.Point;
+import wv.geom.Point;
 import vague.menu.ToolOptions;
 import wv.workspace.WorkTool;
 

@@ -17,7 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import wv.meta.ModuleParent;
 import wv.paint.GraphicsHandle;
-import wv.util.Point;
+import wv.geom.Point;
 
 /**
  * The Window interfaces the Module system with various Java windowing systems to form a coherent unit.

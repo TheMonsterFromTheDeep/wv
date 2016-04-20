@@ -3,7 +3,7 @@ package wv.meta;
 import java.awt.image.BufferedImage;
 import wv.Module;
 import wv.paint.GraphicsHandle;
-import wv.util.Point;
+import wv.geom.Point;
 
 /**
  * The NullParent represents a null module parent. It might be good in the future for it to not silently ignore everything a module does.
