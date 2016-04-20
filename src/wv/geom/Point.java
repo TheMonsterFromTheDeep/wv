@@ -1,12 +1,20 @@
 package wv.geom;
 
+import wv.util.F;
+
 /**
  * A Point is s floating-point representation of a location. It contains both an x and a y coordinate.
  * @author TheMonsterFromTheDeep
  */
 public class Point extends Vector2 {
-    public float x; //x location
-    public float y; //y location
+    /**
+     * The x coordinate of the Point.
+     */
+    public float x;
+    /**
+     * The y coordinate of the Point.
+     */
+    public float y;
     
     /**
      * Creates a new Point at 0,0.
@@ -48,16 +56,32 @@ public class Point extends Vector2 {
     /**
      * Returns whether this Point is the same location as the specified Point.<br><br>
      * 
-     * This method compares the Point exactly; use 
+     * This method compares the Point exactly; use {@link #equalsF(wv.geom.Point)} to compare
+     * within the {@link wv.util.F} threshold.
      * @param p The Point to compare to.
      * @return Whether the two Points are equal.
+     * @see #equalsF(wv.geom.Point) 
      */
     public boolean equals(Point p) {
         return (this.x == p.x) && (this.y == p.y);
     }
     
     /**
-     * Snaps the Vector to a grid of a specific size.
+     * Compares the location of this Point and the location of the specified Point using
+     * {@link wv.util.F}. This gives more lenient values and is better to use when floating-point
+     * rounding errors may exist due to how this Point or the specified Point was manipulated.<br><br>
+     * 
+     * For a direct comparison of this Point and the specified Point, use {@link #equals(wv.geom.Point)}.
+     * @param p The Point to compare with.
+     * @return Whether this Point and the specified Point are equal by the standard of {@link wv.util.F}.
+     * @see #equals(wv.geom.Point) 
+     */
+    public boolean equalsF(Point p) {
+        return F.equals(this.x, p.x) && F.equals(this.y, p.y);
+    }
+    
+    /**
+     * Snaps the Point to a grid of a specific size.
      * @param size The increments in size to snap to.
      */
     public void snap(int size) {
@@ -74,6 +98,7 @@ public class Point extends Vector2 {
         this.y = v.y;
     }
 
+    
     @Override
     public float getXComponent() { return this.x; }
 
